@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/black_circle_360x360.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Discover powerful AI prompts that transform your creative workflow and unlock new possibilities. Elevate your prompts with our curated collection." />
+    <meta name="keywords" content="AI prompts, artificial intelligence, productivity, creativity, automation, development" />
+    <meta property="og:title" content="Elevate Your Prompts - AI Prompt Collection" />
+    <meta property="og:description" content="Discover powerful AI prompts that transform your creative workflow and unlock new possibilities." />
+    <meta property="og:type" content="website" />
+    <title>Elevate Your Prompts - AI Prompt Collection</title>
+    <style>
+      /* Critical CSS for performance */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* Loading state */
+      .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 1.2rem;
+      }
+      
+      /* Line clamp utility */
+      .line-clamp-4 {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading">
+        <div>Loading amazing prompts...</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
