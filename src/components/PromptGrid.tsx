@@ -7,6 +7,7 @@ const PromptGrid: React.FC = () => {
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [displayedPromptCount, setDisplayedPromptCount] = useState(9);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,7 +26,7 @@ const PromptGrid: React.FC = () => {
     cards.forEach(card => observer.observe(card));
 
     return () => observer.disconnect();
-  }, []);
+  }, [displayedPromptCount]);
 
   const handleCardClick = (prompt: Prompt) => {
     setSelectedPrompt(prompt);
@@ -36,6 +37,13 @@ const PromptGrid: React.FC = () => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedPrompt(null), 300);
   };
+
+  const handleLoadMore = () => {
+    setDisplayedPromptCount(prev => Math.min(prev + 9, prompts.length));
+  };
+
+  const displayedPrompts = prompts.slice(0, displayedPromptCount);
+  const hasMorePrompts = displayedPromptCount < prompts.length;
 
   return (
     <section id="prompts" className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -50,7 +58,7 @@ const PromptGrid: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {prompts.map((prompt, index) => (
+          {displayedPrompts.map((prompt, index) => (
             <div
               key={index}
               data-index={index}
@@ -69,12 +77,17 @@ const PromptGrid: React.FC = () => {
           ))}
         </div>
 
-        {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-            Load More Prompts
-          </button>
-        </div>
+        {/* Load More Button - Only show if there are more prompts */}
+        {hasMorePrompts && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={handleLoadMore}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            >
+              Load More Prompts ({prompts.length - displayedPromptCount} remaining)
+            </button>
+          </div>
+        )}
       </div>
 
       <PromptModal
